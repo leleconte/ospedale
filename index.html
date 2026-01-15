@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+      <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,6 @@
             line-height: 1.5;
         }
 
-        /* Navigazione Invisibile ma Elegante */
         nav {
             padding: 40px 10%;
             display: flex;
@@ -40,7 +40,6 @@
             text-transform: uppercase;
         }
 
-        /* Hero: Efficienza Visiva */
         .hero {
             height: 60vh;
             display: flex;
@@ -64,7 +63,6 @@
             padding-left: 20px;
         }
 
-        /* Storia: Lineare e Pulita */
         .story-section {
             padding: 100px 10%;
             display: grid;
@@ -75,7 +73,6 @@
 
         .story-tag { color: var(--gold); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
 
-        /* Modulo Prenotazione: Il Cuore dell'Efficienza */
         .booking-container {
             padding: 100px 10%;
             max-width: 1200px;
@@ -86,7 +83,7 @@
             background: #000;
             border: 1px solid #333;
             padding: 60px;
-            border-radius: 0px; /* Squadrato per più autorità */
+            border-radius: 0px;
         }
 
         .input-group {
@@ -194,19 +191,19 @@
                 <label>Tipo di Consulto</label>
                 <select id="tipo" required>
                     <option value="" disabled selected>Seleziona un servizio...</option>
-                    <option value="psicologica">Test Psicologico Specialistico</option>
-                    <option value="generale">Controllo Medico Generale</option>
+                    <option value="Visita Psicologica Specialistica">Supporto Psicologico Specialistico</option>
+                    <option value="Controllo Medico Generale">Controllo Medico Generale</option>
                 </select>
             </div>
 
             <div class="grid-row">
                 <div class="input-group">
                     <label>Paziente</label>
-                    <input type="text" placeholder="Nome e Cognome" required>
+                    <input type="text" id="paziente" placeholder="Nome e Cognome" required>
                 </div>
                 <div class="input-group">
                     <label>Contatto Diretto</label>
-                    <input type="tel" placeholder="Numero di Telefono" required>
+                    <input type="tel" id="telefono" placeholder="Numero di Telefono" required>
                 </div>
             </div>
 
@@ -217,7 +214,7 @@
                 </div>
                 <div class="input-group">
                     <label>Orario Richiesto</label>
-                    <input type="time" required>
+                    <input type="time" id="orarioInput" required>
                 </div>
             </div>
 
@@ -232,17 +229,59 @@
 </footer>
 
 <script>
-    // Imposta data minima
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1461478813249704039/Qr2dpMQxqd0WYt2ffKa0dwTD3WMPtU7wW9HfGhdLcNGUH5fIcqNeucyGziwf-9ORcT41";
+
+    // Imposta data minima a oggi per il calendario
     document.getElementById('dataInput').setAttribute('min', new Date().toISOString().split('T')[0]);
 
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        
         const btn = this.querySelector('button');
+        const tipoVisita = document.getElementById('tipo').value;
+        const nomePaziente = document.getElementById('paziente').value;
+        const telefonoPaziente = document.getElementById('telefono').value;
+        const dataVisita = document.getElementById('dataInput').value;
+        const orarioVisita = document.getElementById('orarioInput').value;
+
         btn.innerHTML = "ELABORAZIONE...";
-        setTimeout(() => {
-            btn.innerHTML = "INVIATA";
-            alert("Richiesta registrata. Un coordinatore medico ti contatterà a breve sul numero fornito.");
-        }, 1500);
+        btn.disabled = true;
+
+        const discordPayload = {
+            embeds: [{
+                title: "🏛️ Nuova Richiesta Center City Medical",
+                description: "Una nuova richiesta di presa in carico è stata inoltrata dal portale web.",
+                color: 13940535, // Decimale per il colore Gold #D4AF37
+                fields: [
+                    { name: "👤 Paziente", value: nomePaziente, inline: true },
+                    { name: "📞 Contatto", value: telefonoPaziente, inline: true },
+                    { name: "📋 Servizio", value: tipoVisita, inline: false },
+                    { name: "📅 Appuntamento", value: `${dataVisita} alle ore ${orarioVisita}`, inline: false }
+                ],
+                footer: { text: "Center City Medical | Sistema Gestione Efficienza" },
+                timestamp: new Date()
+            }]
+        };
+
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(discordPayload)
+        })
+        .then(response => {
+            if (response.ok) {
+                btn.innerHTML = "RICHIESTA INVIATA";
+                alert("Richiesta registrata con successo. Il coordinatore medico riceverà la notifica su Discord.");
+                this.reset();
+            } else {
+                throw new Error();
+            }
+        })
+        .catch(error => {
+            btn.innerHTML = "ERRORE";
+            btn.disabled = false;
+            alert("Si è verificato un errore nell'invio. Riprovare più tardi.");
+        });
     });
 </script>
 
