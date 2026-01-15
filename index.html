@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center City Medical | Excellence in Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --accent: #0052FF; /* Blu elettrico moderno */
+            --text-main: #1A1A1A;
+            --text-muted: #666666;
+            --glass: rgba(255, 255, 255, 0.8);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- DESIGN EFFEKT: BLOB BACKGROUND --- */
+        .blob-bg {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0,82,255,0.05) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            position: sticky;
+            top: 0;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            margin-left: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO SECTION --- */
+        header.hero {
+            padding: 120px 8% 80px;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 25px;
+            letter-spacing: -3px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        /* --- HISTORY TIMELINE --- */
+        .history-section {
+            padding: 100px 8%;
+            background: #fafafa;
+        }
+
+        .section-tag {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .timeline {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            scrollbar-width: none;
+        }
+
+        .history-item {
+            min-width: 280px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .history-item .year {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- BOOKING SYSTEM --- */
+        .booking-section {
+            padding: 100px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .input-minimal {
+            width: 100%;
+            padding: 20px 0;
+            border: none;
+            border-bottom: 2px solid #eee;
+            font-size: 1.1rem;
+            font-family: inherit;
+            margin-bottom: 30px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-minimal:focus { border-bottom-color: var(--accent); }
+
+        .btn-modern {
+            background: var(--text-main);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-modern:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        footer {
+            padding: 60px 8%;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
+            .booking-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob-bg"></div>
+
+<nav>
+    <div class="logo">CENTER CITY<span>.</span>MEDICAL</div>
+    <div class="nav-links">
+        <a href="#storia">Storia</a>
+        <a href="#prenota">Prenotazioni</a>
+        <a href="#servizi">Servizi</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <span class="section-tag">Established 1994</span>
+    <h1>Design meets Medical Care.</h1>
+    <p>La cura del futuro, costruita su trent'anni di eccellenza e innovazione tecnologica.</p>
+    <a href="#prenota" class="btn-modern">Prenota Ora</a>
+</header>
+
+<section class="history-section" id="storia">
+    <span class="section-tag">Il nostro percorso</span>
+    <h2>Dalla visione alla realtà.</h2>
+    
+    <div class="timeline">
+        <div class="history-item">
+            <span class="year">1994</span>
+            <h3>Fondazione</h3>
+            <p>Il Center City Medical apre le porte come piccola clinica specialistica.</p>
+        </div>
+        <div class="history-item">
+            <span class="year">2008</span>
+            <h3>Innovazione</h3>
+            <p>Siamo i primi in città a introdurre la chirurgia robotica minimamente invasiva.</p>
+        </div>
+        <div class="history-item">
+            <span class="year">2022</span>
+            <h3>Digital Era</h3>
+            <p>Lancio della piattaforma AI per diagnosi preventive immediate.</p>
+        </div>
+        <div class="history-item">
+            <span class="year">Oggi</span>
+            <h3>Leader City</h3>
+            <p>Oltre 1 milione di pazienti curati con passione e precisione.</p>
+        </div>
+    </div>
+</section>
+
+<section class="booking-section" id="prenota">
+    <div>
+        <span class="section-tag">Efficienza</span>
+        <h2>Risparmia tempo.<br>Prenota in un istante.</h2>
+        <p style="color: var(--text-muted); margin-top: 20px;">Il nostro sistema automatizzato assegna istantaneamente lo specialista più adatto alle tue esigenze.</p>
+    </div>
+
+    <form id="bookingForm">
+        <input type="text" class="input-minimal" placeholder="Nome completo" required>
+        <input type="email" class="input-minimal" placeholder="Email aziendale o personale" required>
+        <select class="input-minimal" required>
+            <option value="">Seleziona Reparto</option>
+            <option value="1">Neurochirurgia</option>
+            <option value="2">Cardiologia Avanzata</option>
+            <option value="3">Medicina dello Sport</option>
+        </select>
+        <input type="date" class="input-minimal" required>
+        <button type="submit" class="btn-modern">Conferma Appuntamento</button>
+    </form>
+</section>
+
+<footer>
+    <div>&copy; 2026 Center City Medical Group.</div>
+    <div>Privacy / Termini / Sicurezza Dati</div>
+</footer>
+
+<script>
+    // Gestione invio modulo con feedback di efficienza
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('button');
+        btn.innerHTML = "Processing...";
+        
+        setTimeout(() => {
+            btn.style.background = "#10b981";
+            btn.innerHTML = "Confermato ✓";
+            alert("Prenotazione registrata nel sistema Center City Medical.");
+        }, 800);
+    });
+</script>
+
+</body>
+</html>
